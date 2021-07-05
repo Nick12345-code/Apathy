@@ -19,6 +19,7 @@ public class Energy : MonoBehaviour
     {
         energy = maxEnergy;
         energyText.text = energy.ToString();
+        energyBar.fillAmount = energy / maxEnergy;
         fire.SetActive(true);
     }
 

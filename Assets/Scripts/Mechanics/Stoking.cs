@@ -8,6 +8,7 @@ public class Stoking : MonoBehaviour
     public Resource resource;
     [Header("Setup")]
     [SerializeField] private GameObject fireStokeEffect;
+    [SerializeField] private LayerMask campfireLayer;
 
     private void Update()
     {
@@ -16,7 +17,7 @@ public class Stoking : MonoBehaviour
             Ray ray;
             RaycastHit hit;
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 1000))
+            if (Physics.Raycast(ray, out hit, 1000, campfireLayer))
             {
                 print(hit.collider.name);
                 if (hit.collider.CompareTag("Campfire"))

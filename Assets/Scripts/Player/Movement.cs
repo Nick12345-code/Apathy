@@ -7,13 +7,18 @@ public class Movement : MonoBehaviour
     [SerializeField] private float speed = 10.0f;
     [SerializeField] private float rotationSpeed = 5.0f;
     [SerializeField] private bool moving = false;
+    [SerializeField] private LayerMask groundLayer;
     Vector3 targetPosition;
     Vector3 lookAtTarget;
     Quaternion playerRotation;
 
     private void Update()
     {
-        Look();
+        if (!moving)
+        {
+            Look();
+        }
+
         if (moving)
         {
             Move();
@@ -22,14 +27,14 @@ public class Movement : MonoBehaviour
 
     private void Look()
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 1000))
+            if (Physics.Raycast(ray, out hit, 1000, groundLayer))
             {
                 if (hit.collider.CompareTag("Ground"))
-                {
+                {                   
                     targetPosition = hit.point;
                     this.transform.LookAt(targetPosition);
                     transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
@@ -37,6 +42,10 @@ public class Movement : MonoBehaviour
                     lookAtTarget = new Vector3(targetPosition.x - transform.position.x, transform.position.y, targetPosition.z - transform.position.z);
                     playerRotation = Quaternion.LookRotation(lookAtTarget);
                     moving = true;
+                }
+                else
+                {
+                    print("you can't move here!");
                 }
             }
         }
