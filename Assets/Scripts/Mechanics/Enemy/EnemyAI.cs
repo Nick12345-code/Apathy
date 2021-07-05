@@ -9,12 +9,10 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float minDistance = 10.0f;
     [SerializeField] private float maxDistance = 15.0f;
     [SerializeField] private float speed = 5.0f;
-    [SerializeField] private MeshRenderer mesh;
 
     private void Start()
     {
         target = GameObject.Find("Player").GetComponent<Transform>();
-        mesh.enabled = false;
     }
 
     #region Comments
@@ -36,24 +34,6 @@ public class EnemyAI : MonoBehaviour
             {
 
             }
-        }
-    }
-    
-    // if within radius of light, enemies are visible
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.GetComponent<Collider>().CompareTag("Light"))
-        {
-            mesh.enabled = true;
-        }
-    }
-
-    // if out of radius of light, enemies are invisible
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.GetComponent<Collider>().CompareTag("Light"))
-        {
-            mesh.enabled = false;
         }
     }
 }

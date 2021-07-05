@@ -24,7 +24,6 @@ public class Energy : MonoBehaviour
 
     private void Update()
     {
-        #region fire continually loses energy
         if (energy <= 0)
         {
             FireOut();
@@ -39,7 +38,6 @@ public class Energy : MonoBehaviour
                 LoseEnergy(1.0f);
             }
         }
-        #endregion
     }
 
     #region lose/gain energy functions
@@ -58,10 +56,8 @@ public class Energy : MonoBehaviour
     }
     #endregion
 
-    #region fire is extinguished
     private void FireOut()
     {
         fire.SetActive(false);
     }
-    #endregion
 }

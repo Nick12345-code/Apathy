@@ -53,7 +53,7 @@ public class EnemySpawner : MonoBehaviour
                 spawnPosition.z = tempSpawnPosition.y;
 
                 GameObject a = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-                a.transform.SetParent(GameObject.Find("Enemies").transform); 
+                a.transform.SetParent(GameObject.Find("Clones").transform); 
         }
         currentAmount += spawnAmount;
     }

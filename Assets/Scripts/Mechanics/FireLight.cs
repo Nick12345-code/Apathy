@@ -7,16 +7,36 @@ public class FireLight : MonoBehaviour
     public Energy energyScript;
     [Header("Light")]
     [SerializeField] private SphereCollider lightRadius;
-    [SerializeField] private int weakLight = 25;
-    [SerializeField] private int normalLight = 50;
-    [SerializeField] private int strongLight = 100;
     [SerializeField] private Light campfireLight;
+    [Header("Enemy Visibility")]
+    [SerializeField] private MeshRenderer mesh;
+
+    private void Start()
+    {
+        mesh.enabled = false;
+    }
 
     private void Update()
     {
-        #region range of light is dependant on energy level
         lightRadius.radius = energyScript.energy;
         campfireLight.range = energyScript.energy;
-        #endregion
+    }
+
+    // if within radius of light, enemies are visible
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.GetComponent<Collider>().CompareTag("Enemy"))
+        {
+            mesh.enabled = true;
+        }
+    }
+
+    // if out of radius of light, enemies are invisible
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Collider>().CompareTag("Enemy"))
+        {
+            mesh.enabled = false;
+        }
     }
 }
