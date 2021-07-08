@@ -23,7 +23,7 @@ public class Burning : MonoBehaviour
             {
                 timer = 0.0f;
                 health.LoseHealth(1);
-                print("You are being burned!");
+                Tips.tips.text = "You are being burned!";
             }
         }
     }

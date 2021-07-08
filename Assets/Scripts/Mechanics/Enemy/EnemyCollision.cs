@@ -5,10 +5,9 @@ using UnityEngine;
 public class EnemyCollision : MonoBehaviour
 {
     public Health health;
-    [Header("Damaging Player")]
+    [Header("Damage Player")]
     [SerializeField] private float timer;
     [SerializeField] private float delay = 1.0f;
-    [Header("Enemy Visibility")]
     [SerializeField] private MeshRenderer mesh;
 
     private void Start()
@@ -18,9 +17,19 @@ public class EnemyCollision : MonoBehaviour
         mesh.enabled = false;
     }
 
+    // player loses health when enemy hits them
+    private void OnCollisionEnter(Collision collider)
+    {
+        if (collider.gameObject.GetComponent<Transform>().CompareTag("Player"))
+        {
+            health.LoseHealth(10f);
+        }
+    }
+
+    // player keeps losing health while colliding with enemy
     private void OnCollisionStay(Collision collider)
     {
-        if (collider.gameObject.GetComponent<Rigidbody>().CompareTag("Player"))
+        if (collider.gameObject.GetComponent<Transform>().CompareTag("Player"))
         {
             timer += Time.deltaTime;
 
@@ -29,24 +38,6 @@ public class EnemyCollision : MonoBehaviour
                 timer = 0.0f;
                 health.LoseHealth(10f);
             }
-        }
-    }
-
-    // if within radius of light, enemies stays visible
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.GetComponent<Collider>().CompareTag("Light"))
-        {
-            mesh.enabled = true;
-        }
-    }
-
-    // if out of radius of light, enemies are invisible
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.GetComponent<Collider>().CompareTag("Light"))
-        {
-            mesh.enabled = false;
         }
     }
 }

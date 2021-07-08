@@ -7,7 +7,8 @@ public class Resource : MonoBehaviour
 {
     public Energy energy;
     [Header("Wood")]
-    public int wood = 10;
+    public int wood = 0;
+    public int woodInWorld = 0;
     [SerializeField] private Text woodText;
 
     private void Start()
@@ -19,6 +20,7 @@ public class Resource : MonoBehaviour
     {
         wood -= amount;
         woodText.text = wood.ToString();
+        woodInWorld -= amount;
     }
 
     public void GainWood(int amount)

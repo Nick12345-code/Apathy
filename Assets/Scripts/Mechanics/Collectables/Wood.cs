@@ -12,9 +12,10 @@ public class Wood : MonoBehaviour
         resource = GameObject.Find("Resource").GetComponent<Resource>();
     }
 
-    private void OnCollisionEnter(Collision collider)
+    // if player collides with branch, wood increases
+    private void OnTriggerEnter(Collider other)
     {
-        if(collider.gameObject.CompareTag("Player"))
+        if(other.gameObject.CompareTag("Player"))
         {
             resource.GainWood(1);
             Destroy(this.gameObject);

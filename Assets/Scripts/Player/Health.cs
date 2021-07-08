@@ -18,16 +18,13 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        #region lose game
         if (health <= 0)
         {
             ResetHealth();
             SceneManagement.LoseGame();
         }
-        #endregion
     }
 
-    #region lose/gain/reset health functions
     public void LoseHealth(float amount)
     {
         health -= amount;
@@ -48,5 +45,4 @@ public class Health : MonoBehaviour
         healthText.text = health.ToString("0");
         healthBar.fillAmount = health / maxHealth;
     }
-    #endregion
 }

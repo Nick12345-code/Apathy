@@ -34,7 +34,7 @@ public class Stoking : MonoBehaviour
                     }
                     else
                     {
-                        print("You don't have any wood!");
+                        Tips.tips.text = "You don't have any wood!";
                     }
                 }
             }
