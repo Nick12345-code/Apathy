@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class Energy : MonoBehaviour
 {
-    [Header("Energy")]
+    [Header("Setup")]
     public float energy;
-    [SerializeField] private float maxEnergy = 100.0f;
+    [SerializeField] private float maxEnergy;
     [SerializeField] private Text energyText;
     [SerializeField] private Image energyBar;
-    [Header("Burning Wood")]
+    [Header("Wood Burning")]
     [SerializeField] private float timer;
-    [SerializeField] private float delay = 1.0f;
+    [SerializeField] private float delay;
     [SerializeField] private GameObject fire;
 
     private void Start()
@@ -25,6 +25,7 @@ public class Energy : MonoBehaviour
 
     private void Update()
     {
+        #region Fire Slowly Burning Up  
         if (energy <= 0)
         {
             FireOut();
@@ -39,9 +40,10 @@ public class Energy : MonoBehaviour
                 LoseEnergy(1.0f);
             }
         }
+        #endregion
     }
 
-    #region lose/gain energy functions
+    #region Lose/Gain Energy
     public void LoseEnergy(float amount)
     {
         energy -= amount;
@@ -57,8 +59,10 @@ public class Energy : MonoBehaviour
     }
     #endregion
 
+    #region Fire Is Extinguished
     private void FireOut()
     {
         fire.SetActive(false);
     }
+    #endregion
 }

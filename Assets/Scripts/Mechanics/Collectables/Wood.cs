@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Wood : MonoBehaviour
 {
+    [Header("Script References")]
     public Resource resource;
 
     private void Start()
@@ -12,7 +13,7 @@ public class Wood : MonoBehaviour
         resource = GameObject.Find("Resource").GetComponent<Resource>();
     }
 
-    // if player collides with branch, wood increases
+    #region Player Collecting Wood
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
@@ -21,4 +22,5 @@ public class Wood : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    #endregion
 }

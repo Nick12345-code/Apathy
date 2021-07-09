@@ -14,6 +14,7 @@ public class Pause : MonoBehaviour
 
     private void Update()
     {
+        #region Pause Conditions
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (paused == true)
@@ -25,8 +26,10 @@ public class Pause : MonoBehaviour
                 PauseGame();
             } 
         }
+        #endregion
     }
 
+    #region Pause/Resume Game
     private void PauseGame()
     {
         Time.timeScale = 0.0f;
@@ -40,4 +43,5 @@ public class Pause : MonoBehaviour
         pauseMenu.SetActive(false);
         paused = false;
     }
+    #endregion
 }

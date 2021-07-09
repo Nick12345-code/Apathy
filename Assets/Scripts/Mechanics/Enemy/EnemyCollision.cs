@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class EnemyCollision : MonoBehaviour
 {
+    [Header("Script References")]
     public Health health;
-    [Header("Damage Player")]
+    public Gold gold;
+    [Header("Player Damage")]
     [SerializeField] private float timer;
-    [SerializeField] private float delay = 1.0f;
+    [SerializeField] private float delay;
     [SerializeField] private MeshRenderer mesh;
 
     private void Start()
@@ -17,16 +19,17 @@ public class EnemyCollision : MonoBehaviour
         mesh.enabled = false;
     }
 
-    // player loses health when enemy hits them
     private void OnCollisionEnter(Collision collider)
     {
+        #region enemy collision with player
         if (collider.gameObject.GetComponent<Transform>().CompareTag("Player"))
         {
-            health.LoseHealth(10f);
+            health.LoseHealth(5f);
         }
+        #endregion
     }
 
-    // player keeps losing health while colliding with enemy
+    #region If Player Keeps Colliding With Enemy
     private void OnCollisionStay(Collision collider)
     {
         if (collider.gameObject.GetComponent<Transform>().CompareTag("Player"))
@@ -36,8 +39,9 @@ public class EnemyCollision : MonoBehaviour
             if (timer >= delay)
             {
                 timer = 0.0f;
-                health.LoseHealth(10f);
+                health.LoseHealth(5f);
             }
         }
     }
+    #endregion
 }

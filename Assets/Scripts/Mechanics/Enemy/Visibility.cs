@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Visibility : MonoBehaviour
 {
-    // if within radius of light, enemies stays visible
+    #region Enemy Is Visible When In Light
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.GetComponent<Collider>().CompareTag("Enemy"))
@@ -12,8 +12,9 @@ public class Visibility : MonoBehaviour
             other.GetComponent<MeshRenderer>().enabled = true;
         }
     }
+    #endregion
 
-    // if out of radius of light, enemies are invisible
+    #region Enemy Is Invisible When Out Of Light
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.GetComponent<Collider>().CompareTag("Enemy"))
@@ -21,4 +22,5 @@ public class Visibility : MonoBehaviour
             other.GetComponent<MeshRenderer>().enabled = false;
         }
     }
+    #endregion
 }

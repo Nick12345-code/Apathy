@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    [Header("Health")]
     [SerializeField] private float health;
-    [SerializeField] private float maxHealth = 100.0f;
+    [SerializeField] private float maxHealth;
     [SerializeField] private Image healthBar;
     [SerializeField] private Text healthText;
 
@@ -18,13 +17,16 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
+        #region When Player Loses All Health
         if (health <= 0)
         {
             ResetHealth();
             SceneManagement.LoseGame();
         }
+        #endregion
     }
 
+    #region Lose/Gain Health
     public void LoseHealth(float amount)
     {
         health -= amount;
@@ -45,4 +47,5 @@ public class Health : MonoBehaviour
         healthText.text = health.ToString("0");
         healthBar.fillAmount = health / maxHealth;
     }
+    #endregion
 }

@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Spawning")]
+    [Header("Setup")]
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private float timer;
-    [SerializeField] private float delay = 1.0f;
-    [SerializeField] private float radius = 25f;
+    [SerializeField] private float delay;
+    [SerializeField] private float radius;
     [Header("Enemies")]
-    [SerializeField] private int spawnAmount = 5;
-    public int currentAmount = 0;
-    [SerializeField] private int maxAmount = 10;
+    [SerializeField] private int spawnAmount;
+    [SerializeField] private int maxAmount;
+    public int currentAmount;
 
     private void Update()
     {
+        #region Enemy Spawn Timer
         timer += Time.deltaTime;
 
         if (timer >= delay)
@@ -30,17 +31,10 @@ public class EnemySpawner : MonoBehaviour
                 print("max number of enemies in play!");
             }
         }
+        #endregion
     }
 
-    #region Comments
-    // for every enemy in spawned enemies
-    // spawn randomly within a sphere
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, radius);
-    }
-    #endregion
+    #region Enemy Spawning
     private void SpawnEnemies()
     {
         for (int i = 0; i < spawnAmount; i++)
@@ -57,4 +51,11 @@ public class EnemySpawner : MonoBehaviour
         }
         currentAmount += spawnAmount;
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
+    #endregion
 }
