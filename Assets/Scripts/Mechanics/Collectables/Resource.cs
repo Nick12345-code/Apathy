@@ -17,7 +17,7 @@ public class Resource : MonoBehaviour
         woodText.text = wood.ToString();     
     }
 
-    #region Lose/Gain Wood
+    // lose wood and update HUD
     public void LoseWood(int amount)
     {
         wood -= amount;
@@ -25,10 +25,10 @@ public class Resource : MonoBehaviour
         woodInWorld -= amount;
     }
 
+    // gain wood and update HUD
     public void GainWood(int amount)
     {
         wood += amount;
         woodText.text = wood.ToString();
     }
-    #endregion
 }

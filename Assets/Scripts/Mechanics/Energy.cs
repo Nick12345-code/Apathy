@@ -25,25 +25,26 @@ public class Energy : MonoBehaviour
 
     private void Update()
     {
-        #region Fire Slowly Burning Up  
+        // if no energy left
         if (energy <= 0)
         {
             FireOut();
         }
         else
         {
+            // timer increases gradually
             timer += Time.deltaTime;
 
+            // if timer is greater than or equal to the delay
             if (timer >= delay)
-            {
-                timer = 0.0f;
-                LoseEnergy(1.0f);
+            {           
+                timer = 0.0f;       // timer is reset
+                LoseEnergy(1.0f);   // lose 1 energy
             }
         }
-        #endregion
     }
 
-    #region Lose/Gain Energy
+    // lose energy and update HUD
     public void LoseEnergy(float amount)
     {
         energy -= amount;
@@ -51,18 +52,17 @@ public class Energy : MonoBehaviour
         energyBar.fillAmount = energy / maxEnergy;
     }
 
+    // gain energy and update HUD
     public void GainEnergy(float amount)
     {
         energy += amount;
         energyText.text = energy.ToString();
         energyBar.fillAmount = energy / maxEnergy;
     }
-    #endregion
 
-    #region Fire Is Extinguished
+    // fire is disabled
     private void FireOut()
     {
         fire.SetActive(false);
     }
-    #endregion
 }

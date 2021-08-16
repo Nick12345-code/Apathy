@@ -14,34 +14,33 @@ public class Pause : MonoBehaviour
 
     private void Update()
     {
-        #region Pause Conditions
+        // if escape button is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (paused == true)
+            // if paused, resume game
+            if (paused == true) 
             {
                 ResumeGame();
             }
+            // if not paused, pause game
             else if (paused == false)
             {
                 PauseGame();
             } 
         }
-        #endregion
     }
 
-    #region Pause/Resume Game
     private void PauseGame()
     {
-        Time.timeScale = 0.0f;
-        pauseMenu.SetActive(true);
-        paused = true;
+        Time.timeScale = 0.0f;          // freezes time
+        pauseMenu.SetActive(true);      // opens pause screen
+        paused = true;                  // paused set to true
     }
 
     public void ResumeGame()
     {
-        Time.timeScale = 1.0f;
-        pauseMenu.SetActive(false);
-        paused = false;
+        Time.timeScale = 1.0f;          // time unfrozen
+        pauseMenu.SetActive(false);     // closes pause screen
+        paused = false;                 // paused set to false
     }
-    #endregion
 }

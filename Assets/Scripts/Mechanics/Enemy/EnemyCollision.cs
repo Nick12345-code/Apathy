@@ -14,34 +14,35 @@ public class EnemyCollision : MonoBehaviour
 
     private void Start()
     {
-        health = GameObject.Find("PlayerHolder").GetComponent<Health>();
+        health = GameObject.Find("Player").GetComponent<Health>();
         mesh = GetComponent<MeshRenderer>();
         mesh.enabled = false;
     }
 
     private void OnCollisionEnter(Collision collider)
     {
-        #region enemy collision with player
+        // if enemy collides with player
         if (collider.gameObject.GetComponent<Transform>().CompareTag("Player"))
         {
+            // player loses 5 health
             health.LoseHealth(5f);
         }
-        #endregion
     }
 
-    #region If Player Keeps Colliding With Enemy
     private void OnCollisionStay(Collision collider)
     {
+        // if player stays colliding with enemy
         if (collider.gameObject.GetComponent<Transform>().CompareTag("Player"))
         {
+            // timer increases gradually
             timer += Time.deltaTime;
 
+            // if timer is greater than or equal to the delay
             if (timer >= delay)
             {
-                timer = 0.0f;
-                health.LoseHealth(5f);
+                timer = 0.0f;           // timer is reset
+                health.LoseHealth(5f);  // lose 5 health
             }
         }
     }
-    #endregion
 }

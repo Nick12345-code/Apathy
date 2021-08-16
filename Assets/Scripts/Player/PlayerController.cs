@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("References")]
+    public Mana manaScript;
     [Header("Movement")]
     [SerializeField] private float speed;
     [Header("Shooting")]
@@ -11,27 +13,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private float fireSpeed;
     [SerializeField] private float lastTimeFired;
+    [SerializeField] private float shootCost;
 
     private void Update()
     {
-        HandleMovement();
-        HandleRotation();
-        HandleShooting();
+        Movement();
+        Rotation();
+        Shooting();
     }
 
-    #region WASD Movement
-    private void HandleMovement()
+    private void Movement()
     {
+        // WASD movement
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-
         Vector3 movement = new Vector3(horizontal, 0, vertical);
         transform.Translate(movement * -speed * Time.deltaTime, Space.World);
     }
-    #endregion
 
-    #region Player Faces Mouse Position
-    private void HandleRotation()
+    private void Rotation()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -41,20 +41,34 @@ public class PlayerController : MonoBehaviour
             transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
         }
     }
-    #endregion
 
-    #region Attacking Enemies
-    private void HandleShooting()
+    private void Shooting()
     {
-        if (Input.GetButton("Fire1"))
+        if (SystemInfo.deviceType == DeviceType.Desktop)
         {
-            if (lastTimeFired + fireSpeed < Time.time)
+            if (Input.GetButton("Fire1"))
             {
-                lastTimeFired = Time.time;
-                GameObject a = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation) as GameObject;
-                a.transform.SetParent(GameObject.Find("Clones").transform); 
-            }
-        } 
+                if (manaScript.mana >= shootCost)
+                {
+                    Shoot(); 
+                }
+            } 
+        }
+
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+           
+        }
     }
-    #endregion
+
+    private void Shoot()
+    {
+        if (lastTimeFired + fireSpeed < Time.time)
+        {
+            lastTimeFired = Time.time;
+            GameObject a = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation) as GameObject;
+            a.transform.SetParent(GameObject.Find("Clones").transform);
+            manaScript.LoseMana(shootCost);
+        }
+    }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Visibility : MonoBehaviour
 {
-    #region Enemy Is Visible When In Light
+    // enemy is visible when within light
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.GetComponent<Collider>().CompareTag("Enemy"))
@@ -12,9 +12,8 @@ public class Visibility : MonoBehaviour
             other.GetComponent<MeshRenderer>().enabled = true;
         }
     }
-    #endregion
 
-    #region Enemy Is Invisible When Out Of Light
+    // enemy is invisible when not in light
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.GetComponent<Collider>().CompareTag("Enemy"))
@@ -22,5 +21,5 @@ public class Visibility : MonoBehaviour
             other.GetComponent<MeshRenderer>().enabled = false;
         }
     }
-    #endregion
+    
 }

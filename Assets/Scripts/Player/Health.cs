@@ -17,16 +17,15 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        #region When Player Loses All Health
+        // if player loses all health
         if (health <= 0)
         {
             ResetHealth();
             SceneManagement.LoseGame();
         }
-        #endregion
     }
 
-    #region Lose/Gain Health
+    // lose health and update HUD
     public void LoseHealth(float amount)
     {
         health -= amount;
@@ -34,6 +33,7 @@ public class Health : MonoBehaviour
         healthText.text = health.ToString("0");
     }
 
+    // gain health and update HUD
     public void GainHealth(float amount)
     {
         health += amount;
@@ -41,11 +41,11 @@ public class Health : MonoBehaviour
         healthText.text = health.ToString("0");
     }
 
+    // set health to 0 and update HUD
     public void ResetHealth()
     {
         health = 0;
         healthText.text = health.ToString("0");
         healthBar.fillAmount = health / maxHealth;
     }
-    #endregion
 }

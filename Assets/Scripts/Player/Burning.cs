@@ -14,41 +14,43 @@ public class Burning : MonoBehaviour
     [Header("Enemy Burnt")]
     [SerializeField] private GameObject deathEffect;
 
-    #region Player Burnt
     private void OnTriggerStay(Collider other)
     {
+        // if player is touching the fire
         if (other.gameObject.GetComponent<Collider>().CompareTag("Player"))
         {
+            // timer increases gradually
             timer += Time.deltaTime;
 
+            // if timer is greater than or equal to delay
             if (timer >= delay)
-            {
-                timer = 0.0f;
-                health.LoseHealth(1);
-                Tips.tips.text = "You are being burned!";
+            {       
+                timer = 0.0f;           // timer is reset                                 
+                health.LoseHealth(1);   // lose 1 health
             }
         }
     }
-    #endregion
 
-    #region Enemy Burnt
     private void OnTriggerEnter(Collider other)
     {
+        // if enemy is touching fire
         if (other.gameObject.GetComponent<Collider>().CompareTag("Enemy"))
-        {
-            EnemyDeathEffect(transform.position);
-            Destroy(other.gameObject);
-            spawning.currentAmount--;
-            gold.GainGold(2);
+        {       
+            EnemyDeathEffect(transform.position);   // enable particles
+            Destroy(other.gameObject);              // destroy enemy
+            spawning.currentAmount--;               // current enemy amount decreased by 1
+            gold.GainGold(2);                       // gain 2 gold
         }
     }
-    #endregion
 
+    // position to spawn the enemy death particles
     public void EnemyDeathEffect(Vector3 position)
     {
+        // spawn particles
         GameObject a = Instantiate(deathEffect, position, transform.rotation) as GameObject;
         a.transform.Rotate(-90, 0, 0);
         a.transform.SetParent(GameObject.Find("Clones").transform);
+        // destroy after 5 seconds
         Destroy(a, 5f);
     }
 }

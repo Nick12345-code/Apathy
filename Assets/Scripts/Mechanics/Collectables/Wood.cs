@@ -13,14 +13,13 @@ public class Wood : MonoBehaviour
         resource = GameObject.Find("Resource").GetComponent<Resource>();
     }
 
-    #region Player Collecting Wood
     private void OnTriggerEnter(Collider other)
     {
+        // if player collides with wood
         if(other.gameObject.CompareTag("Player"))
         {
-            resource.GainWood(1);
-            Destroy(this.gameObject);
+            resource.GainWood(1);       // player gains 1 wood
+            Destroy(this.gameObject);   // destroy wood GameObject
         }
     }
-    #endregion
 }

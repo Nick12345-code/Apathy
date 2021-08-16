@@ -13,10 +13,9 @@ public class CameraController : MonoBehaviour
         MoveCamera();
     }
 
-    #region Camera Follows Player Smoothly
+    // camera follows player smoothly
     private void MoveCamera()
     {
         transform.position = Vector3.Lerp(transform.position, target.position + offset, speed * Time.deltaTime);
     }
-    #endregion
 }
