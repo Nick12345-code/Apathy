@@ -44,20 +44,12 @@ public class PlayerController : MonoBehaviour
 
     private void Shooting()
     {
-        if (SystemInfo.deviceType == DeviceType.Desktop)
+        if (Input.GetButton("Fire1"))
         {
-            if (Input.GetButton("Fire1"))
+            if (manaScript.mana >= shootCost)
             {
-                if (manaScript.mana >= shootCost)
-                {
-                    Shoot(); 
-                }
-            } 
-        }
-
-        if (SystemInfo.deviceType == DeviceType.Handheld)
-        {
-           
+                Shoot();
+            }
         }
     }
 
@@ -72,3 +64,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+
+
+// transform.position += transform.right * (MobileInputManager.Instance.joystick.Axis.x * Time.DeltaTime);
+// Vector2.joystickAxis = MobileInputManager.GetJoystickAxis();
