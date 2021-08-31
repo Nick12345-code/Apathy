@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    public void SceneLoad(string sceneName)
+    public void ChangeScene(string name)
     {
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(name);
     }
 
     public static void LoseGame()

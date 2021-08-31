@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [Header("Script References")]
-    public Gold gold;
-    public Burning burning;
-    public EnemySpawner spawning;
+    [Header("References")]
+    private Gold gold;
+    private Burning burning;
+    private EnemySpawner spawning;
     [Header("Setup")]
-    [SerializeField] private float speed;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private float speed;
     [SerializeField] private float maxDistance;
 
     private void Start()
@@ -19,6 +17,7 @@ public class Bullet : MonoBehaviour
         gold = GameObject.Find("Gold").GetComponent<Gold>();
         burning = GameObject.Find("BurnRadius").GetComponent<Burning>();
         spawning = GameObject.Find("EnemySpawner").GetComponent<EnemySpawner>();
+
         firePoint.position = transform.position;
     }
 

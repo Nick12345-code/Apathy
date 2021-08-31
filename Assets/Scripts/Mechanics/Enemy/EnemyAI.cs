@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -15,6 +13,11 @@ public class EnemyAI : MonoBehaviour
     }
 
     private void Update()
+    {
+        Chase();
+    }
+
+    private void Chase()
     {
         // enemy looks at player
         transform.LookAt(target);

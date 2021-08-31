@@ -1,28 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
     public Mana manaScript;
-    [Header("Movement")]
+    [Header("Move")]
     [SerializeField] private float speed;
-    [Header("Shooting")]
+    [Header("Shoot")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float fireSpeed;
-    [SerializeField] private float lastTimeFired;
+    [SerializeField] private float lastFired;
     [SerializeField] private float shootCost;
 
     private void Update()
     {
-        Movement();
-        Rotation();
-        Shooting();
+        Move();
+        Rotate();
+        Shoot();
     }
 
-    private void Movement()
+    private void Move()
     {
         // WASD movement
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -31,7 +29,7 @@ public class PlayerController : MonoBehaviour
         transform.Translate(movement * -speed * Time.deltaTime, Space.World);
     }
 
-    private void Rotation()
+    private void Rotate()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -42,22 +40,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Shooting()
+    private void Shoot()
     {
         if (Input.GetButton("Fire1"))
         {
             if (manaScript.mana >= shootCost)
             {
-                Shoot();
+                SpawnBullet();
             }
         }
     }
 
-    private void Shoot()
+    private void SpawnBullet()
     {
-        if (lastTimeFired + fireSpeed < Time.time)
+        if (lastFired + fireSpeed < Time.time)
         {
-            lastTimeFired = Time.time;
+            lastFired = Time.time;
             GameObject a = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation) as GameObject;
             a.transform.SetParent(GameObject.Find("Clones").transform);
             manaScript.LoseMana(shootCost);
