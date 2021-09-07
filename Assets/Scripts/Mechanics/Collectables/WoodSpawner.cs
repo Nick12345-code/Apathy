@@ -32,13 +32,34 @@ public class WoodSpawner : MonoBehaviour
         }
     }
 
+    public GameObject ObjectToSpawn;
+    public float RateOfSpawn = 1;
+
+    private float nextSpawn = 0;
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (Time.time > nextSpawn)
+        {
+            nextSpawn = Time.time + RateOfSpawn;
+
+            // Random position within this transform
+            Vector3 rndPosWithin;
+            rndPosWithin = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            rndPosWithin = transform.TransformPoint(rndPosWithin * .5f);
+            Instantiate(SpawnWood, rndPosWithin, transform.rotation);
+        }
+    }
+
     private void SpawnWood()
     {
         // for all wood in woodSpawnedAtOneTime
         for (int i = 0; i < woodSpawnedAtOneTime; i++)
         {
             // temporary spawn position is a random position within a sphere
-            Vector2 tempSpawnPosition = Random.insideUnitSphere * radius;
+            Vector2 tempSpawnPosition = Random.cube * radius;
 
             Vector3 spawnPosition;
             spawnPosition.x = tempSpawnPosition.x;

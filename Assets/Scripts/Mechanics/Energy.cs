@@ -6,8 +6,9 @@ public class Energy : MonoBehaviour
     [Header("Setup")]
     public float energy;
     [SerializeField] private float maxEnergy;
-    [SerializeField] private Text energyText;
     [SerializeField] private Image energyBar;
+    [SerializeField] private ParticleSystem fireParticles;
+    [SerializeField] private ParticleSystem smokeParticles;
     [Header("Wood Burning")]
     [SerializeField] private float timer;
     [SerializeField] private float delay;
@@ -16,7 +17,6 @@ public class Energy : MonoBehaviour
     private void Start()
     {
         energy = maxEnergy;
-        energyText.text = energy.ToString();
         energyBar.fillAmount = energy / maxEnergy;
         fire.SetActive(true);
     }
@@ -26,7 +26,9 @@ public class Energy : MonoBehaviour
         // if no energy left
         if (energy <= 0)
         {
-            FireOut();
+            fireParticles.Stop();
+            smokeParticles.Stop();
+            Invoke("FireOut", 1);
         }
         else
         {
@@ -46,15 +48,13 @@ public class Energy : MonoBehaviour
     public void LoseEnergy(float amount)
     {
         energy -= amount;
-        energyText.text = energy.ToString();
-        energyBar.fillAmount = energy / maxEnergy;
+        energyBar.fillAmount = Mathf.Lerp(energyBar.fillAmount, energy / maxEnergy, 1);
     }
 
     // gain energy and update HUD
     public void GainEnergy(float amount)
     {
         energy += amount;
-        energyText.text = energy.ToString();
         energyBar.fillAmount = energy / maxEnergy;
     }
 

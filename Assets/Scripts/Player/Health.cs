@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] private float health;
     [SerializeField] private float maxHealth;
     [SerializeField] private Image healthBar;
-    [SerializeField] private Text healthText;
 
     private void Start()
     {
@@ -18,7 +18,6 @@ public class Health : MonoBehaviour
         // if player loses all health
         if (health <= 0)
         {
-            ResetHealth();
             SceneManagement.LoseGame();
         }
     }
@@ -28,22 +27,14 @@ public class Health : MonoBehaviour
     {
         health -= amount;
         healthBar.fillAmount = health / maxHealth;
-        healthText.text = health.ToString("0");
     }
 
-    // gain health and update HUD
-    public void GainHealth(float amount)
+    public IEnumerator DrainHealth()
     {
-        health += amount;
-        healthBar.fillAmount = health / maxHealth;
-        healthText.text = health.ToString("0");
-    }
-
-    // set health to 0 and update HUD
-    public void ResetHealth()
-    {
-        health = 0;
-        healthText.text = health.ToString("0");
-        healthBar.fillAmount = health / maxHealth;
+        while (true)
+        {
+            LoseHealth(1);
+            yield return new WaitForSeconds(1f);
+        }
     }
 }

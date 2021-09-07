@@ -3,7 +3,7 @@ using UnityEngine;
 public class Pause : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private bool paused = false;
+    private bool paused = false;
 
     private void Start()
     {

@@ -6,7 +6,6 @@ public class Mana : MonoBehaviour
     public float mana;
     [SerializeField] private float maxMana;
     [SerializeField] private Image manaBar;
-    [SerializeField] private Text manaText;
 
     private void Start()
     {
@@ -18,7 +17,6 @@ public class Mana : MonoBehaviour
     {
         mana -= amount;
         manaBar.fillAmount = mana / maxMana;
-        manaText.text = mana.ToString("0");
     }
 
     // gain mana and update HUD
@@ -26,6 +24,5 @@ public class Mana : MonoBehaviour
     {
         mana += amount;
         manaBar.fillAmount = mana / maxMana;
-        manaText.text = mana.ToString("0");
     }
 }
