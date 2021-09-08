@@ -1,11 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Resource : MonoBehaviour
+public class Wood : MonoBehaviour
 {
-    [Header("Script References")]
-    public Energy energy;
-    [Header("Setup")]
     public int wood;
     public int woodInWorld;
     [SerializeField] private Text woodText;
@@ -20,13 +17,13 @@ public class Resource : MonoBehaviour
     {
         wood -= amount;
         woodText.text = wood.ToString();
-        woodInWorld -= amount;
     }
 
     // gain wood and update HUD
     public void GainWood(int amount)
     {
         wood += amount;
+        woodInWorld -= amount;
         woodText.text = wood.ToString();
     }
 }

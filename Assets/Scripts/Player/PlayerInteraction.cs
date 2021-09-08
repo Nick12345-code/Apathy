@@ -4,7 +4,7 @@ public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private Transform campfire;
     [SerializeField] private Energy energy;
-    [SerializeField] private Resource resource;
+    [SerializeField] private Wood wood;
     [SerializeField] private GameObject fireStokeEffect;
     [SerializeField] private LayerMask campfireLayer;
 
@@ -25,9 +25,9 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (hit.collider.CompareTag("Campfire"))
             {
-                if (resource.wood > 0)
+                if (wood.wood > 0)
                 {
-                    resource.LoseWood(1);
+                    wood.LoseWood(1);
                     energy.GainEnergy(10);
 
                     StokeParticles();
