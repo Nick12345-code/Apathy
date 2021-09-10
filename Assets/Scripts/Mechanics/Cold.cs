@@ -8,7 +8,7 @@ public class Cold : MonoBehaviour
     {
         if (other.GetComponent<Collider>().CompareTag("Player"))
         {
-            StopCoroutine(health.DrainHealth());
+            health.losingHealth = false;
         }
     }
 
@@ -16,7 +16,7 @@ public class Cold : MonoBehaviour
     {
         if (other.GetComponent<Collider>().CompareTag("Player"))
         {
-            StartCoroutine(health.DrainHealth());
+            health.losingHealth = true;
         }
     }
 

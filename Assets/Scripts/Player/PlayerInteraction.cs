@@ -2,37 +2,37 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    [SerializeField] private float reach;
     [SerializeField] private Transform campfire;
     [SerializeField] private Energy energy;
-    [SerializeField] private Wood wood;
+    [SerializeField] private Wood woodScript;
     [SerializeField] private GameObject fireStokeEffect;
-    [SerializeField] private LayerMask campfireLayer;
+    [SerializeField] private GameObject stokeButton;
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        DistanceCheck();
+    }
+    
+    private void DistanceCheck()
+    {
+        if (Vector3.Distance(transform.position, campfire.position) <= reach && woodScript.wood > 0)
         {
-            StokeFire();
+            stokeButton.SetActive(true);
+        }
+        else
+        {
+            stokeButton.SetActive(false);
         }
     }
 
-    private void StokeFire()
+    public void StokeFire()
     {
-        Ray ray;
-        RaycastHit hit;
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 1000, campfireLayer))
+        if (woodScript.wood > 0)
         {
-            if (hit.collider.CompareTag("Campfire"))
-            {
-                if (wood.wood > 0)
-                {
-                    wood.LoseWood(1);
-                    energy.GainEnergy(10);
-
-                    StokeParticles();
-                }
-            }
+            woodScript.LoseWood(1);
+            energy.GainEnergy(10);
+            StokeParticles();
         }
     }
 

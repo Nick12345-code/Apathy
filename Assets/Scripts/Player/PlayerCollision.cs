@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -6,11 +7,11 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // if player collides with wood
+        // if player collides with a branch
         if (hit.gameObject.CompareTag("Wood"))
         {
-            wood.GainWood(1);       // player gains 1 wood
-            Destroy(hit.gameObject);    // destroy wood GameObject
+            wood.GainWood(1);           
+            Destroy(hit.gameObject);    
         }
     }
 }
