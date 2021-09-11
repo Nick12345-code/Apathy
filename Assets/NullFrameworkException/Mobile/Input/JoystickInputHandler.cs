@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -32,8 +30,8 @@ namespace NullFrameworkException.Mobile.InputHandling
 
         public void OnDrag(PointerEventData _eventData)
         {
-            float xDifference = (background.rect.size.x - handle.rect.size.x * .5f);
-            float yDifference = (background.rect.size.y - handle.rect.size.y * .5f);
+            float xDifference = (background.rect.size.x - handle.rect.size.x); //* .5f
+            float yDifference = (background.rect.size.y - handle.rect.size.y); //* .5f
 
             // calculate the axis of the input based on the event data and the relative position to the background's center
             Axis = new Vector2()

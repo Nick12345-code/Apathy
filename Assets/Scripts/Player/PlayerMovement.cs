@@ -3,6 +3,8 @@ using NullFrameworkException.Mobile.InputHandling;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private bool onComputer;
+    [SerializeField] private bool onMobile;
     [Header("Computer")]
     public Health healthScript;
     [SerializeField] private float moveSpeed;
@@ -23,10 +25,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //Move();
-        //Look();
-        MobileMove();
-        MobileLook();
+        DeviceCheck();
+
+        if (onComputer)
+        {
+            Move();
+            Look(); 
+        }
+
+        if (onMobile)
+        {
+            MobileMove();
+            MobileLook(); 
+        }
+    }
+
+    private void DeviceCheck()
+    {
+        if (SystemInfo.deviceType == DeviceType.Desktop)
+        {
+            onComputer = true;
+            onMobile = false;
+        }
+
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            onComputer = false;
+            onMobile = true;
+        }
     }
 
     #region Computer Controls
@@ -100,11 +126,8 @@ public class PlayerMovement : MonoBehaviour
         float moveX = joystick.Axis.x;
         float moveZ = joystick.Axis.y;
 
-        // put moveZ into a Vector3
+        // put moveX and moveZ into a Vector3
         moveDirection = new Vector3(-moveX, 0, -moveZ);
-
-        // converts the Vector3 from local space to world space
-        moveDirection = transform.TransformDirection(moveDirection);
 
         // if player is moving
         if (moveDirection != Vector3.zero)
@@ -143,9 +166,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void MobileLook()
     {
-        Vector3 relativePos = new Vector3(transform.position.x + joystick.Axis.x, transform.position.y, transform.position.z + joystick.Axis.y) - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(relativePos);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime);
+        float angle = Mathf.Atan2(joystick.Axis.y, joystick.Axis.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(0, -angle - 90, 0)), Time.deltaTime * rotationSpeed);
     }
     #endregion
 }
