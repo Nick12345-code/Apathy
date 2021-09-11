@@ -113,8 +113,17 @@ public class PlayerMovement : MonoBehaviour
         // ray is casted
         if (Physics.Raycast(ray, out hit))
         {
-            // player looks towards the hit point
-            transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+            // get direction player is facing initially
+            Vector3 dir = hit.point - transform.position;
+
+            // get the angle between the original direction and target direction
+            float angle = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
+
+            // set the angle into a usable quaternion
+            Quaternion rotation = Quaternion.Euler(new Vector3(0, -angle + 90, 0));
+
+            // rotate player smoothly
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
         }
     }
     #endregion
