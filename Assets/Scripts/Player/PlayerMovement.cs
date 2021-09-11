@@ -10,12 +10,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float animationSmoothness;
+    [SerializeField] private float rotationSpeed;
     private Vector3 moveDirection;
     private CharacterController controller;
     private Animator playerAnimation;
     [Header("Mobile")]
     public JoystickInputHandler joystick;
-    [SerializeField] private float rotationSpeed;
     [SerializeField] private GameObject joystickObject;
 
     private void Start()
