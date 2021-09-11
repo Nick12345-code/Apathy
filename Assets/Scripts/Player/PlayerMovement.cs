@@ -16,27 +16,31 @@ public class PlayerMovement : MonoBehaviour
     [Header("Mobile")]
     public JoystickInputHandler joystick;
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private GameObject joystickObject;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         playerAnimation = GetComponentInChildren<Animator>();
+
+        DeviceCheck();
+
+        if (onMobile) joystickObject.SetActive(true);
+        else joystickObject.SetActive(false);
     }
 
     private void Update()
     {
-        DeviceCheck();
-
         if (onComputer)
         {
             Move();
-            Look(); 
+            Look();
         }
 
         if (onMobile)
         {
             MobileMove();
-            MobileLook(); 
+            MobileLook();
         }
     }
 
