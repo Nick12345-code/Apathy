@@ -2,12 +2,21 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    [Header("Stoking Fire")]
     [SerializeField] private float reach;
     [SerializeField] private Transform campfire;
     [SerializeField] private Energy energy;
     [SerializeField] private Wood woodScript;
     [SerializeField] private GameObject fireStokeEffect;
     [SerializeField] private GameObject stokeButton;
+    [Header("Torch")]
+    [SerializeField] private Light torch;
+    public bool isOn;
+
+    private void Start()
+    {
+        torch.enabled = false;
+    }
 
     private void Update()
     {
@@ -42,5 +51,19 @@ public class PlayerInteraction : MonoBehaviour
         a.transform.Rotate(-90, 0, 0);
         a.transform.SetParent(GameObject.Find("Clones").transform);
         Destroy(a, 5f);
+    }
+
+    public void Torch()
+    {
+        if (isOn)
+        {
+            isOn = false;
+            torch.enabled = false;
+        }
+        else if (!isOn)
+        {
+            isOn = true;
+            torch.enabled = true;
+        }
     }
 }

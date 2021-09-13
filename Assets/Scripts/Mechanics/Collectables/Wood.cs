@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class Wood : MonoBehaviour
 {
     public int wood;
     public int woodInWorld;
-    [SerializeField] private Text woodText;
+    [SerializeField] private TextMeshProUGUI woodText;
 
     private void Start()
     {
