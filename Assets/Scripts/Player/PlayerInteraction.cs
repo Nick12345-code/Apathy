@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [Header("Stoking Fire")]
+    [SerializeField] private Wood woodScript;
+    [SerializeField] private Energy energy;
+    [Header("Campfire Interaction")]
     [SerializeField] private float reach;
     [SerializeField] private Transform campfire;
-    [SerializeField] private Energy energy;
-    [SerializeField] private Wood woodScript;
     [SerializeField] private GameObject fireStokeEffect;
     [SerializeField] private GameObject stokeButton;
 
@@ -17,31 +17,35 @@ public class PlayerInteraction : MonoBehaviour
     
     private void DistanceCheck()
     {
+        // if distance between player and campfire is less or equal to reach AND player has wood
         if (Vector3.Distance(transform.position, campfire.position) <= reach && woodScript.wood > 0)
         {
+            // stoke button visible
             stokeButton.SetActive(true);
         }
         else
         {
+            // stoke button invisible
             stokeButton.SetActive(false);
         }
     }
 
     public void StokeFire()
     {
-        if (woodScript.wood > 0)
-        {
-            woodScript.LoseWood(1);
-            energy.GainEnergy(10);
-            StokeParticles();
-        }
+        woodScript.LoseWood(1);
+        energy.GainEnergy(10);
+        StokeParticles();
     }
 
     private void StokeParticles()
     {
+        // spawn particles
         GameObject a = Instantiate(fireStokeEffect, campfire.position, Quaternion.identity) as GameObject;
+        // fix their rotation
         a.transform.Rotate(-90, 0, 0);
+        // set their parent to clones to keep inspector clean
         a.transform.SetParent(GameObject.Find("Clones").transform);
+        // destroy them after 5 seconds
         Destroy(a, 5f);
     }
 }

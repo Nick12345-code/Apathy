@@ -49,14 +49,18 @@ public class Torch : MonoBehaviour
                 // if timer is greater than or equal to delay
                 if (timer >= delay)
                 {
-                    timer = 0.0f;                       // timer is reset                                 
+                    // timer reset
+                    timer = 0.0f;        
+                    // battery decreases by drainAmount
                     battery -= drainAmount;
+                    // battery bar represents this visually
                     batteryBar.fillAmount = battery / maxBattery;
                 }
             } 
         }
         else
         {
+            // not best way to turn off the light but yeah works
             Destroy(torch);
         }
     }
