@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -13,23 +14,8 @@ public class PlayerCollision : MonoBehaviour
             wood.GainWood(1);           
             Destroy(hit.gameObject);    
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            health.losingHealth = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        
+        // if enemy catches player, you lose
+        if (hit.gameObject.CompareTag("Enemy")) SceneManager.LoadScene("Lose");
     }
 }

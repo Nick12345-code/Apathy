@@ -13,6 +13,7 @@ public class Energy : MonoBehaviour
     [SerializeField] private float timer;
     [SerializeField] private float delay;
     [SerializeField] private GameObject fire;
+    [SerializeField] private AudioSource campfireSound;
 
     private void Start()
     {
@@ -62,5 +63,6 @@ public class Energy : MonoBehaviour
     private void FireOut()
     {
         fire.SetActive(false);
+        campfireSound.enabled = false;
     }
 }

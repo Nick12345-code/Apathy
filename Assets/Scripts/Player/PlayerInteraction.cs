@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private Wood woodScript;
-    [SerializeField] private Energy energy;
+    [SerializeField] private Energy energyScript;
     [Header("Campfire Interaction")]
     [SerializeField] private float reach;
     [SerializeField] private Transform campfire;
@@ -14,7 +14,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         DistanceCheck();
     }
-    
+
     private void DistanceCheck()
     {
         // if distance between player and campfire is less or equal to reach AND player has wood
@@ -33,7 +33,7 @@ public class PlayerInteraction : MonoBehaviour
     public void StokeFire()
     {
         woodScript.LoseWood(1);
-        energy.GainEnergy(10);
+        energyScript.GainEnergy(10);
         StokeParticles();
     }
 

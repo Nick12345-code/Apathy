@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float walkSpeed;
     [SerializeField] private float animationSmoothness;
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private LayerMask ground;
     private Vector3 moveDirection;
     private CharacterController controller;
     private Animator playerAnimation;
@@ -108,26 +109,30 @@ public class PlayerMovement : MonoBehaviour
 
     private void Look()
     {
-        // stores info on what ray hits
-        RaycastHit hit;
+        // plane to reference
+        Plane playerPlane = new Plane(Vector3.up, transform.position);
 
-        // ray is shot from the center of the camera to mouse position
+        // ray is shot down to mouse position
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        // distance of the ray
+        float hitDistance = 0.0f;
+
         // ray is casted
-        if (Physics.Raycast(ray, out hit))
+        if (playerPlane.Raycast(ray, out hitDistance))
         {
-            // get direction player is facing initially
-            Vector3 dir = hit.point - transform.position;
+            // direction to mouse position
+            Vector3 targetPoint = ray.GetPoint(hitDistance);
 
-            // get the angle between the original direction and target direction
-            float angle = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
+            // rotation to mouse position
+            Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
 
-            // set the angle into a usable quaternion
-            Quaternion rotation = Quaternion.Euler(new Vector3(0, -angle + 90, 0));
+            // stops rotation on x and z axises
+            targetRotation.x = 0;
+            targetRotation.z = 0;
 
-            // rotate player smoothly
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+            // smoothly rotates the player towards the mouse position
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
     #endregion
