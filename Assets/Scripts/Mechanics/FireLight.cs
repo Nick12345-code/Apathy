@@ -5,11 +5,14 @@ using UnityEngine;
 public class FireLight : MonoBehaviour
 {
     public Energy energyScript;
-    [Header("Light")]
-    [SerializeField] private SphereCollider lightRadius;
     [SerializeField] private Light campfireLight;
+    private SphereCollider lightRadius;
 
-    private void Update()
+    private void Start() => lightRadius = GetComponent<SphereCollider>();
+
+    private void Update() => LoseLight();
+
+    private void LoseLight()
     {
         lightRadius.radius = energyScript.energy;
         campfireLight.range = energyScript.energy;

@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -14,14 +13,23 @@ public class PlayerCollision : MonoBehaviour
             wood.GainWood(1);           
             Destroy(hit.gameObject);    
         }
+    }
 
-        if (hit.gameObject.CompareTag("Enemy"))
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
         {
             health.losingHealth = true;
         }
-        else
-        {
-            health.losingHealth = false;
-        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        
     }
 }

@@ -23,7 +23,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6759448882052246062, guid: 9787e9e0fbeb87a45beb0d9d4e03edca, type: 3}
       propertyPath: m_Name
-      value: LPW_Tree_B1_9m_01
+      value: Tree2
       objectReference: {fileID: 0}
     - target: {fileID: 6759448882052412942, guid: 9787e9e0fbeb87a45beb0d9d4e03edca, type: 3}
       propertyPath: m_RootOrder
@@ -31,15 +31,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6759448882052412942, guid: 9787e9e0fbeb87a45beb0d9d4e03edca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -34.033367
+      value: 8.571516
       objectReference: {fileID: 0}
     - target: {fileID: 6759448882052412942, guid: 9787e9e0fbeb87a45beb0d9d4e03edca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.8
+      value: 0.2999981
       objectReference: {fileID: 0}
     - target: {fileID: 6759448882052412942, guid: 9787e9e0fbeb87a45beb0d9d4e03edca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.3886845
+      value: 8.986009
       objectReference: {fileID: 0}
     - target: {fileID: 6759448882052412942, guid: 9787e9e0fbeb87a45beb0d9d4e03edca, type: 3}
       propertyPath: m_LocalRotation.w
