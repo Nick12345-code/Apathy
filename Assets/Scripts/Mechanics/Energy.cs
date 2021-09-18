@@ -9,6 +9,7 @@ public class Energy : MonoBehaviour
     [SerializeField] private Image energyBar;
     [SerializeField] private ParticleSystem fireParticles;
     [SerializeField] private ParticleSystem smokeParticles;
+    [SerializeField] private Collider burnCollider;
     [Header("Wood Burning")]
     [SerializeField] private float timer;
     [SerializeField] private float delay;
@@ -62,7 +63,9 @@ public class Energy : MonoBehaviour
     // fire is disabled
     private void FireOut()
     {
-        fire.SetActive(false);
+        fireParticles.Stop();
+        smokeParticles.Stop();
+        burnCollider.enabled = false;
         campfireSound.enabled = false;
     }
 }

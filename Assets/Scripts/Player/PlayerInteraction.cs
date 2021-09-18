@@ -33,7 +33,7 @@ public class PlayerInteraction : MonoBehaviour
     public void StokeFire()
     {
         woodScript.LoseWood(1);
-        energyScript.GainEnergy(10);
+        energyScript.GainEnergy(20);
         StokeParticles();
     }
 
