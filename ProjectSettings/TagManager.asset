@@ -9,7 +9,6 @@ TagManager:
   - Light
   - Ground
   - Enemy
-  - Bullet
   - Fire
   layers:
   - Default
@@ -20,7 +19,7 @@ TagManager:
   - UI
   - Ground
   - Campfire
-  - Props
+  - 
   - 
   - 
   - 

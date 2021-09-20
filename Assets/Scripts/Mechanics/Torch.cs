@@ -4,16 +4,17 @@ using UnityEngine.UI;
 public class Torch : MonoBehaviour
 {
     [SerializeField] private Image batteryBar;
-    [SerializeField] private Light torch;
     [SerializeField] private float battery;
     [SerializeField] private float maxBattery;
     [SerializeField] private float drainAmount;
     [SerializeField] private float timer;
     [SerializeField] private float delay;
     [SerializeField] private bool on;
+    private Light torch;
 
     private void Start()
     {
+        torch = GetComponent<Light>();
         battery = maxBattery;
         torch.enabled = false;
     }

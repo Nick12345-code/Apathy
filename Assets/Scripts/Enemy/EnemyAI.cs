@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    [SerializeField] private AudioController manager;
     [Header("Movement")]
     private EnemyVision vision;
     private NavMeshAgent agent;
@@ -26,14 +27,19 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (vision.canSeePlayer) 
+        if (vision.canSeePlayer)
+        {
             Chase();
-        else if (!vision.canSeePlayer) 
+            manager.FadeIn();
+        } 
+        else if (!vision.canSeePlayer)
+        {
             Wander();
+            manager.FadeOut();
+        } 
 
         Animation();
     }
-
     private void Chase()
     {
         agent.SetDestination(target.position);

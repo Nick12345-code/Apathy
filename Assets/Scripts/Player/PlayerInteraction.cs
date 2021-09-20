@@ -4,6 +4,7 @@ public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private Wood woodScript;
     [SerializeField] private Energy energyScript;
+    [SerializeField] private AudioController manager;
     [Header("Campfire Interaction")]
     [SerializeField] private float reach;
     [SerializeField] private Transform campfire;
@@ -32,6 +33,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public void StokeFire()
     {
+        manager.PlaySound(1);
         woodScript.LoseWood(1);
         energyScript.GainEnergy(20);
         StokeParticles();

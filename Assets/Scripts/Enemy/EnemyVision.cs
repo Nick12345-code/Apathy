@@ -5,7 +5,6 @@ public class EnemyVision : MonoBehaviour
 {
     public Transform player;
     [SerializeField, Range(0, 360)] public float angle;
-    [SerializeField] private Transform pointer;
     public float radius;
     public bool canSeePlayer;
 
@@ -36,7 +35,7 @@ public class EnemyVision : MonoBehaviour
         if (Vector3.Angle(transform.forward, toTarget) <= viewAngle)
         {
             // raycast shot out from pointer in direction of target
-            if (Physics.Raycast(pointer.position, toTarget, out RaycastHit hit, viewRange))
+            if (Physics.Raycast(transform.position, toTarget, out RaycastHit hit, viewRange))
             {
                 // if the ray hits the player
                 if (hit.transform.root == target)
