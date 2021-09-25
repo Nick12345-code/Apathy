@@ -42,11 +42,15 @@ public class EnemyAI : MonoBehaviour
     }
     private void Chase()
     {
+        agent.speed = 2;
+
         agent.SetDestination(target.position);
     }
 
     private void Wander()
     {
+        agent.speed = 1;
+
         // timer increases gradually
         timer += Time.deltaTime;
 
